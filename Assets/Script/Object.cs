@@ -7,11 +7,12 @@ public class Object : MonoBehaviour
     // 길을 찾아서 이동할 에이전트
     NavMeshAgent agent;
 
-    public GameObject[] target_Object;
     public Transform[] target;
+    //public Transform target;
 
     float originalTime = 0.0f;
-    float boundaryTime = 10.0f;
+    float originalTime2 = 0.0f;
+    float boundaryTime = 7.0f;
     float stayTime = 0.0f;
 
     bool stopTime = false;
@@ -33,26 +34,13 @@ public class Object : MonoBehaviour
     void Start()
     {
 
-
-
-        ranNum = Random.Range(0, 20);
+        ranNum = Random.Range(0, 10);
+        Debug.Log("초기 번호 : "+ ranNum);
+        agent.enabled = true;
 
 
         // target location 
-        target_Object = new GameObject[10];
-        target = new Transform[10];
-
-
-
-        for (int i = 0; i < 10; i++) {
-            Debug.Log("TARGET (" + i + ")");
-            target_Object[i] = GameObject.Find("TARGET (" + i + ")");
-            target[i] = target_Object[i].transform;
-
-        }
-
-
-
+        //target = new Transform[10];
 
     }
 
@@ -60,12 +48,15 @@ public class Object : MonoBehaviour
     {
 
         originalTime += Time.deltaTime;
+        originalTime2 += Time.deltaTime;
 
-        if (originalTime >= 5.0f) {
-            agent.speed = Random.Range(3.5f, 6.5f);
+
+        if (originalTime2 >= 5.0f && stopTime == false) {
+            agent.speed = Random.Range(5.5f, 10.5f);
+            originalTime2 = 0.0f;
         }
 
-        if (boundaryTime >= originalTime) {
+        if (boundaryTime <= originalTime) {
             originalTime = 0.0f;
             boundaryTime = Random.Range(10.0f, 50.0f);
             randomTime = Random.Range(5.0f, 15.0f);
@@ -80,25 +71,22 @@ public class Object : MonoBehaviour
             if (stayTime >= randomTime) {
                 stopTime = false;
                 stayTime = 0.0f;
-                agent.speed = 5.0f;
+                agent.speed = 6.0f;
             }
         }
 
         agent.SetDestination(target[ranNum].position);
         agent.enabled = true;
-       
-
 
     }
 
-    void OnCollisionEnter(Collision col)
+    void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "TARGET") {
 
             for (;;) {
                 newNum = Random.Range(0, 10);
-                if (newNum == ranNum) { 
-                }
+                if (newNum == ranNum){}
                 if (newNum != ranNum) { ranNum = newNum;  break; }
             }
         }

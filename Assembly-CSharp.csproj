@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Script\Object.cs" />
     <Compile Include="Assets\Script\BOT_Management.cs" />
+    <Compile Include="Assets\Script\Manage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
