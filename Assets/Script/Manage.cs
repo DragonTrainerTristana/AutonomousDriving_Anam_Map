@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class Manage : MonoBehaviour
 {
+
     public GameObject[] BOT;
+    public GameObject TOP;
     public int numBOT;
     public float boundaryTime;
 
@@ -16,38 +18,35 @@ public class Manage : MonoBehaviour
     bool timeState = false;
     int num = 0;
 
-    float[,] position_x;
-    float[,] position_z;
-
-    Vector3[] botVec;
-
     string[,] array;
         
     //Path
     string filename = "";
 
+    private void Awake()
+    {
+        
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         filename = Application.dataPath + "/check.csv";
 
-        array = new string[10000, 10000];
-        position_x = new float[10000, 10000];
-        position_z = new float[10000, 10000];
-        botVec = new Vector3[10000];
-        BOT = new GameObject[numBOT];
+        array = new string[10, 2000];
+
+        Debug.Log(BOT[0].transform.position.x);
             
         originalTime = 0.0f;
         originalTime2 = 0.0f;
-        boundaryTime = 10.0f;
+        boundaryTime = 180.0f;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        originalTime = Time.deltaTime;
+        originalTime += Time.deltaTime;
         originalTime2 += Time.deltaTime;
 
         if (originalTime2 > 2.0f && timeState == false) { 
@@ -69,6 +68,8 @@ public class Manage : MonoBehaviour
         }
 
         if (originalTime > boundaryTime && timeState == false) {
+
+            Debug.Log("EXPORT START");
             timeState = true;
             using (StreamWriter sw = new StreamWriter(filename))
             {

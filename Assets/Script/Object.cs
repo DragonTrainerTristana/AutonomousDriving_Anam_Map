@@ -35,9 +35,8 @@ public class Object : MonoBehaviour
     {
 
         ranNum = Random.Range(0, 10);
-        Debug.Log("초기 번호 : "+ ranNum);
         agent.enabled = true;
-
+        boundaryTime = Random.Range(10.0f, 50.0f);
 
         // target location 
         //target = new Transform[10];
@@ -52,7 +51,7 @@ public class Object : MonoBehaviour
 
 
         if (originalTime2 >= 5.0f && stopTime == false) {
-            agent.speed = Random.Range(5.5f, 10.5f);
+            agent.speed = Random.Range(7.5f, 10.5f);
             originalTime2 = 0.0f;
         }
 
